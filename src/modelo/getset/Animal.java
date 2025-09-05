@@ -1,4 +1,4 @@
-package dados;
+package modelo.getset;
 
 public class Animal {
     private int brinco;
@@ -21,16 +21,16 @@ public class Animal {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nomeTouro) {
+        this.nome = nomeTouro;
     }
 
     public String getRaca() {
         return raca;
     }
 
-    public void setRaca(String raca) {
-        this.raca = raca;
+    public void setRaca(String racaTouro) {
+        this.raca = racaTouro;
     }
 
     public String getSexo() {

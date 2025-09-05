@@ -1,4 +1,4 @@
-package dados;
+package modelo.getset;
 
 // Subclasse para Vaca
 public class Vaca extends Animal {

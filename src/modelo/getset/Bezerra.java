@@ -1,10 +1,10 @@
-package dados;
+package modelo.getset;
 
 // Subclasse para Bezerra
 public class Bezerra extends Animal {
     private boolean desmamou;
     private String dataDesmame;
-    private String statusReprodutivo;
+    private int consumoLeite;
     private String pai;
     private String mae;
 
@@ -24,12 +24,12 @@ public class Bezerra extends Animal {
         this.dataDesmame = dataDesmame;
     }
 
-    public String getStatusReprodutivo() {
-        return statusReprodutivo;
+    public int getConsumoLeite() {
+        return consumoLeite;
     }
 
-    public void setStatusReprodutivo(String statusReprodutivo) {
-        this.statusReprodutivo = statusReprodutivo;
+    public void setConsumoLeite(int consumoLeite) {
+        this.consumoLeite = consumoLeite;
     }
 
     public String getPai() {
