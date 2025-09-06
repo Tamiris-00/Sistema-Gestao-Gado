@@ -1,10 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplicacao.AnimaisController">
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="modelo.getset.Animal">
-   <children>
-      <BorderPane layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" />
-   </children>
-</AnchorPane>
+    <!-- Barra superior com pesquisa -->
+    <top>
+        <HBox spacing="10" style="-fx-padding: 10; -fx-background-color: #ecf0f1;">
+            <TextField fx:id="txtPesquisar" promptText="Pesquisar animal..." />
+            <Button fx:id="btnBuscar" text="Buscar" />
+            <Button fx:id="btnNovo" text="Novo Animal" />
+        </HBox>
+    </top>
+
+    <!-- Tabela central -->
+    <center>
+        <TableView fx:id="tabelaAnimais">
+            <columns>
+                <TableColumn fx:id="colBrinco" prefWidth="100" text="Brinco" />
+                <TableColumn fx:id="colNome" prefWidth="150" text="Nome" />
+                <TableColumn fx:id="colRaca" prefWidth="100" text="Raça" />
+                <TableColumn fx:id="colDataNasc" prefWidth="120" text="Nascimento" />
+                <TableColumn fx:id="colPeso" prefWidth="100" text="Peso (kg)" />
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <GridPane hgap="10" style="-fx-padding: 10; -fx-background-color: #f9f9f9;" vgap="10">
+            <Label text="Brinco:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="txtBrinco" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Label text="Raça:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="txtRaca" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <Label text="Data Nascimento:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <DatePicker fx:id="dpNascimento" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+            <Label text="Peso:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <TextField fx:id="txtPeso" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <GridPane hgap="5" style="-fx-padding: 4; -fx-background-color: #f9f9f9;" vgap="5" GridPane.rowIndex="5">
+            <Button fx:id="btnSalvar" text="Salvar" GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#cadastrarAnimal"/>
+                <Button fx:id="btnEditar" text="Editar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Button fx:id="btnCancelar" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+
+            </GridPane>
+
+        </GridPane>
+    </bottom>
+
+</BorderPane>

@@ -9,6 +9,10 @@ public class Animal {
     private double pesoAtual;
     private String origem;
 
+    public Animal() {
+
+    }
+
     public int getBrinco() {
         return brinco;
     }

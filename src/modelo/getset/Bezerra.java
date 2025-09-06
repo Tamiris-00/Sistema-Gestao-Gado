@@ -1,6 +1,6 @@
 package modelo.getset;
 
-// Subclasse para Bezerra
+
 public class Bezerra extends Animal {
     private boolean desmamou;
     private String dataDesmame;
@@ -8,7 +8,7 @@ public class Bezerra extends Animal {
     private String pai;
     private String mae;
 
-    public boolean isDesmamou() {
+    public boolean Desmamou() {
         return desmamou;
     }
 
@@ -48,5 +48,5 @@ public class Bezerra extends Animal {
         this.mae = mae;
     }
 
-    // getters, setters e construtor
+
 }

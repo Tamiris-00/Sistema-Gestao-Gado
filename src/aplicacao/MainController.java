@@ -15,7 +15,7 @@ public class MainController {
 
     @FXML
     private void initialize() {
-        // adiciona ações nos botões
+
         btnAnimais.setOnAction(e -> carregarTela("Animais.fxml"));
         btnVacinas.setOnAction(e -> carregarTela("Vacina.fxml"));
         btnProducao.setOnAction(e -> carregarTela("Producao.fxml"));
@@ -26,7 +26,7 @@ public class MainController {
     private void carregarTela(String fxml) {
         try {
             Node tela = FXMLLoader.load(getClass().getResource(fxml));
-            mainContent.getChildren().setAll(tela); // troca o conteúdo do centro
+            mainContent.getChildren().setAll(tela);
         } catch (IOException e) {
             e.printStackTrace();
         }
