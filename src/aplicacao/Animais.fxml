@@ -47,6 +47,8 @@
                 <Button fx:id="btnEditar" text="Editar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             <Button fx:id="btnCancelar" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="0" />
 
+
+
             </GridPane>
 
         </GridPane>

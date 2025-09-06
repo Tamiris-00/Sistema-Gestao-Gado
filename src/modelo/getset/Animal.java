@@ -1,11 +1,13 @@
 package modelo.getset;
 
+import java.time.LocalDate;
+
 public class Animal {
     private int brinco;
     private String nome;
     private String raca;
     private String sexo;
-    private String dataNascimento;
+    private LocalDate dataNascimento;
     private double pesoAtual;
     private String origem;
 
@@ -45,11 +47,11 @@ public class Animal {
         this.sexo = sexo;
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
