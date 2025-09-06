@@ -33,6 +33,7 @@ public class AnimaisController {
         txtRaca.getText();
         dpNascimento.getValue();
 
+
         String brinco = txtBrinco.getText();
         System.out.println(brinco);
 
