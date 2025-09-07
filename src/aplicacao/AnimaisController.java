@@ -1,38 +1,41 @@
 package aplicacao;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.control.Button;
-import javafx.scene.Node;
 import modelo.dao.AnimalDAO;
 import modelo.getset.Animal;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
 import static java.time.LocalDate.parse;
 
 public class AnimaisController {
-    @FXML
-    private TextField txtBrinco;
-    @FXML
-    private TextField txtNome;
-    @FXML
-    private TextField txtRaca;
-    @FXML
-    private DatePicker dpNascimento;
-    @FXML
-    private TextField txtPeso;
-    @FXML
-    private Button btnSalvar, btnEditar, btnCancelar;
-    @FXML
-    private GridPane tabela;
+    @FXML private TextField txtSexo;
+    @FXML private TextField txtBrinco;
+    @FXML private TextField txtNome;
+    @FXML private TextField txtRaca;
+    @FXML private DatePicker dataNasc;
+    @FXML private TextField txtPeso;
+    @FXML private TableView<Animal> tblAnimais;
+    @FXML private TableColumn<Animal, Integer> colBrinco;
+    @FXML private TableColumn<Animal, String> colRaca;
+    @FXML private TableColumn<Animal, String> colSexo;
+    @FXML private TableColumn<Animal, LocalDate> colDataNasc;
+
+    @FXML public void initialize() {
+        colBrinco.setCellValueFactory(new PropertyValueFactory<>("idAnimal"));
+        colRaca.setCellValueFactory(new PropertyValueFactory<>("raca"));
+        colSexo.setCellValueFactory(new PropertyValueFactory<>("sexo"));
+        colDataNasc.setCellValueFactory(new PropertyValueFactory<>("dataNasc"));
+    }
 
 
     @FXML
@@ -40,20 +43,23 @@ public class AnimaisController {
         txtBrinco.getText();
         txtNome.getText();
         txtRaca.getText();
-        dpNascimento.getValue();
+        dataNasc.getValue();
         txtPeso.getText();
+        txtSexo.getText();
+
 
         if (validarFormulario()) {
            Animal animal = new Animal();
-           animal.setBrinco(Integer.parseInt(txtBrinco.getText()));
-           animal.setDataNascimento(dpNascimento.getValue());
+           animal.setIdAnimal(Integer.parseInt(txtBrinco.getText()));
+           animal.setDataNasc(dataNasc.getValue());
            animal.setRaca(txtRaca.getText());
            animal.setPesoAtual(Double.parseDouble(txtPeso.getText()));
+           animal.setSexo(txtSexo.getText());
 
             AnimalDAO dao = new AnimalDAO();
             dao.inserir(animal);
 
-            exibirAlerta("Ok","feito");
+            exibirAlerta("Ok "," feito");
 
         }
 
@@ -71,7 +77,7 @@ public class AnimaisController {
     }
 
     private boolean validarNascimento() {
-        LocalDate nascimento = dpNascimento.getValue();
+        LocalDate nascimento = dataNasc.getValue();
         if (nascimento.isAfter(LocalDate.now())){
             exibirAlerta("Erro:", " A data não pode ser no futuro!");
             return false;
@@ -119,6 +125,17 @@ public class AnimaisController {
         return true;
 
     }
+    public void carregarAnimais() {
+        AnimalDAO dao = new AnimalDAO();
+        List<Animal> lista = dao.listar();
+
+        ObservableList<Animal> observableList = FXCollections.observableArrayList(lista);
+        tblAnimais.setItems(observableList);
+
+        System.out.println(lista);
+    }
+
+
 
     private void exibirAlerta(String titulo, String mensagem) {
         System.out.println("exibir alerta"+mensagem);
