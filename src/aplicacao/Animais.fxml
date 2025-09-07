@@ -11,12 +11,13 @@
             <TextField fx:id="txtPesquisar" promptText="Pesquisar animal..." />
             <Button fx:id="btnBuscar" text="Buscar" />
             <Button fx:id="btnNovo" text="Novo Animal" />
+            <Button fx:id="btnAtualizar" onAction="#carregarAnimais" text="Atualizar" />
         </HBox>
     </top>
 
     <!-- Tabela central -->
     <center>
-        <TableView fx:id="tabelaAnimais">
+        <TableView fx:id="tblAnimais">
             <columns>
                 <TableColumn fx:id="colBrinco" prefWidth="100" text="Brinco" />
                 <TableColumn fx:id="colNome" prefWidth="150" text="Nome" />
@@ -42,14 +43,16 @@
 
             <Label text="Peso:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
             <TextField fx:id="txtPeso" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+            <Label text="Sexo:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <TextField fx:id="txtSexo" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
             <GridPane hgap="5" style="-fx-padding: 4; -fx-background-color: #f9f9f9;" vgap="5" GridPane.rowIndex="5">
-            <Button fx:id="btnSalvar" text="Salvar" GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#cadastrarAnimal"/>
+                 <Button fx:id="btnSalvar" onAction="#cadastrarAnimal" text="Salvar" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                 <Button fx:id="btnEditar" text="Editar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Button fx:id="btnCancelar" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-
-
-
+                 <Button fx:id="btnCancelar" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="0" />
             </GridPane>
+
 
         </GridPane>
     </bottom>

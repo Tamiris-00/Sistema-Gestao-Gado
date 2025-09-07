@@ -1,38 +1,38 @@
 package aplicacao;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.control.Button;
 import javafx.scene.Node;
 import modelo.dao.AnimalDAO;
 import modelo.getset.Animal;
-
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
-
+import java.util.List;
+import javafx.scene.*;
 import static java.time.LocalDate.parse;
 
 public class AnimaisController {
-    @FXML
-    private TextField txtBrinco;
-    @FXML
-    private TextField txtNome;
-    @FXML
-    private TextField txtRaca;
-    @FXML
-    private DatePicker dpNascimento;
-    @FXML
-    private TextField txtPeso;
-    @FXML
-    private Button btnSalvar, btnEditar, btnCancelar;
-    @FXML
-    private GridPane tabela;
+    @FXML private TextField txtSexo;
+    @FXML private TextField txtBrinco;
+    @FXML private TextField txtNome;
+    @FXML private TextField txtRaca;
+    @FXML private DatePicker dpNascimento;
+    @FXML private TextField txtPeso;
+    @FXML private TableView<Animal> tblAnimais;
+    @FXML private TableColumn<Animal, Integer> colBrinco;
+    @FXML private TableColumn<Animal, String> colRaca;
+    @FXML private TableColumn<Animal, String> colSexo;
+    @FXML private TableColumn<Animal, LocalDate> colNascimento;
 
 
     @FXML
@@ -42,6 +42,8 @@ public class AnimaisController {
         txtRaca.getText();
         dpNascimento.getValue();
         txtPeso.getText();
+        txtSexo.getText();
+
 
         if (validarFormulario()) {
            Animal animal = new Animal();
@@ -49,11 +51,12 @@ public class AnimaisController {
            animal.setDataNascimento(dpNascimento.getValue());
            animal.setRaca(txtRaca.getText());
            animal.setPesoAtual(Double.parseDouble(txtPeso.getText()));
+           animal.setSexo(txtSexo.getText());
 
             AnimalDAO dao = new AnimalDAO();
             dao.inserir(animal);
 
-            exibirAlerta("Ok","feito");
+            exibirAlerta("Ok "," feito");
 
         }
 
@@ -119,6 +122,15 @@ public class AnimaisController {
         return true;
 
     }
+    public void carregarAnimais() {
+        AnimalDAO dao = new AnimalDAO();
+        List<Animal> lista = dao.listar();
+
+        ObservableList<Animal> observableList = FXCollections.observableArrayList(lista);
+        tblAnimais.setItems(observableList);
+    }
+
+
 
     private void exibirAlerta(String titulo, String mensagem) {
         System.out.println("exibir alerta"+mensagem);
