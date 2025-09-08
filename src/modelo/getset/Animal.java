@@ -8,8 +8,9 @@ public class Animal {
     private String raca;
     private String sexo;
     private LocalDate dataNasc;
-    private double pesoAtual;
+    private Double pesoAtual;
     private String origem;
+    private Integer idMatriz;
 
     public Animal() {
 
@@ -59,7 +60,7 @@ public class Animal {
         return pesoAtual;
     }
 
-    public void setPesoAtual(double pesoAtual) {
+    public void setPesoAtual(Double pesoAtual) {
         this.pesoAtual = pesoAtual;
     }
 
@@ -71,6 +72,8 @@ public class Animal {
         this.origem = origem;
     }
 
-    // getters, setters e construtor
+    public void setIdMatriz(int idMatriz) { this.idMatriz = idMatriz;
+    }
+
 }
 

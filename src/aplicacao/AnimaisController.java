@@ -3,17 +3,16 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import modelo.dao.AnimalDAO;
 import modelo.getset.Animal;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import static java.time.LocalDate.parse;
 
@@ -24,6 +23,7 @@ public class AnimaisController {
     @FXML private TextField txtRaca;
     @FXML private DatePicker dataNasc;
     @FXML private TextField txtPeso;
+    @FXML private TextField txtPesquisar;
     @FXML private TableView<Animal> tblAnimais;
     @FXML private TableColumn<Animal, Integer> colBrinco;
     @FXML private TableColumn<Animal, String> colRaca;
@@ -35,6 +35,11 @@ public class AnimaisController {
         colRaca.setCellValueFactory(new PropertyValueFactory<>("raca"));
         colSexo.setCellValueFactory(new PropertyValueFactory<>("sexo"));
         colDataNasc.setCellValueFactory(new PropertyValueFactory<>("dataNasc"));
+        carregarAnimais();
+        txtPesquisar.textProperty().addListener((observableValue, s, t1)
+                -> buscarAnimal());
+
+
     }
 
 
@@ -47,62 +52,64 @@ public class AnimaisController {
         txtPeso.getText();
         txtSexo.getText();
 
-
         if (validarFormulario()) {
+            LocalDate nasc = validarNascimento();
            Animal animal = new Animal();
            animal.setIdAnimal(Integer.parseInt(txtBrinco.getText()));
+           if (nasc ==null && dataNasc.getValue() != null){
+               return;
+           }
            animal.setDataNasc(dataNasc.getValue());
            animal.setRaca(txtRaca.getText());
-           animal.setPesoAtual(Double.parseDouble(txtPeso.getText()));
+           animal.setPesoAtual(validarPeso());
            animal.setSexo(txtSexo.getText());
-
             AnimalDAO dao = new AnimalDAO();
             dao.inserir(animal);
-
-            exibirAlerta("Ok "," feito");
+            carregarAnimais();
 
         }
 
     }
-
-
     @FXML
-    private void limparFormulario() {
-
+    public void buscarAnimal(){
+   String termo = txtPesquisar.getText();
+    List<Animal> busca = AnimalDAO.buscar(termo);
+        ObservableList<Animal> observableList = FXCollections.observableArrayList(busca);
+        tblAnimais.setItems(observableList);
     }
-
 
     private boolean validarFormulario() {
-        return validarBrinco() && validarPeso() && validarRaca() &&validarNascimento();
+        return validarBrinco() && validarRaca();
     }
 
-    private boolean validarNascimento() {
+    private LocalDate validarNascimento() {
         LocalDate nascimento = dataNasc.getValue();
-        if (nascimento.isAfter(LocalDate.now())){
-            exibirAlerta("Erro:", " A data não pode ser no futuro!");
-            return false;
+        if (nascimento == null) {
+            return null;
         }
-        return true;
+        if (nascimento.isAfter(LocalDate.now())) {
+            exibirAlerta("Erro:", " A data não pode ser no futuro!");
+            return null;
+        }
+        return nascimento;
     }
 
     private boolean validarRaca() {
     return true;
     }
 
-    private boolean validarPeso() {
+    private Double validarPeso() {
         String pesoTexto = txtPeso.getText();
-        try {
-            double peso = Double.parseDouble(pesoTexto);
-
-            if (peso <= 0) {
-                exibirAlerta("Erro", "Pseo deve ser maior que 0");
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            exibirAlerta("Erro", "Peso deve conter apenas numeros!");
-            return false;
+        if (pesoTexto==null || pesoTexto.trim().isEmpty()){
+            return null;
         }
-    return true;
+        try {
+            return Double.parseDouble(pesoTexto);
+            }
+        catch (NumberFormatException e) {
+            exibirAlerta("Erro", "Peso deve conter apenas numeros!");
+            return null;
+        }
 }
 
     private boolean validarBrinco() {
@@ -125,17 +132,36 @@ public class AnimaisController {
         return true;
 
     }
+
+    @FXML
     public void carregarAnimais() {
         AnimalDAO dao = new AnimalDAO();
         List<Animal> lista = dao.listar();
 
-        ObservableList<Animal> observableList = FXCollections.observableArrayList(lista);
-        tblAnimais.setItems(observableList);
-
-        System.out.println(lista);
+            ObservableList<Animal> observableList = FXCollections.observableArrayList(lista);
+            tblAnimais.setItems(observableList);
     }
 
+    public void excluirAnimal() throws SQLException {
+        Animal selecao = tblAnimais.getSelectionModel().getSelectedItem();
 
+            if (selecao == null){
+                exibirAlerta("Erro"," Não há nada para excluir");
+                return;
+            }
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("Confirmação");
+        alerta.setHeaderText("Excluir Animal");
+        alerta.setContentText("Tem certeza que deseja excluir este animal?");
+
+        Optional<ButtonType> resultado = alerta.showAndWait();
+        if (resultado.isPresent()&& resultado.get() == ButtonType.OK){
+            AnimalDAO dao = new AnimalDAO();
+            dao.excluir(selecao.getIdAnimal());
+
+        };
+        carregarAnimais();
+    }
 
     private void exibirAlerta(String titulo, String mensagem) {
         System.out.println("exibir alerta"+mensagem);

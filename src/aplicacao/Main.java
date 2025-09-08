@@ -15,6 +15,7 @@ public class Main extends Application {
         Scene scene = new Scene(loader.load());
 
         // Configura e mostra a janela
+        primaryStage.setMaximized(true);
         primaryStage.setTitle("Gestão de Gado Leiteiro");
         primaryStage.setScene(scene);
         primaryStage.show();
