@@ -3,7 +3,9 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import modelo.dao.AnimalDAO;
 import modelo.getset.Animal;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,6 +19,8 @@ import java.util.Optional;
 import static java.time.LocalDate.parse;
 
 public class AnimaisController {
+    @FXML private Button btnCancelar;
+    @FXML private GridPane gridCadastro;
     @FXML private TextField txtSexo;
     @FXML private TextField txtBrinco;
     @FXML private TextField txtNome;
@@ -38,11 +42,26 @@ public class AnimaisController {
         carregarAnimais();
         txtPesquisar.textProperty().addListener((observableValue, s, t1)
                 -> buscarAnimal());
-
+        cancelarCadastro();
 
     }
 
-
+    @FXML private void novoAnimal(){
+        limparCampos();
+        gridCadastro.setVisible(true);
+        gridCadastro.setManaged(true);
+    }
+    @FXML private void limparCampos(){
+        for (Node node : gridCadastro.getChildren()) {
+            if (node instanceof TextField) {
+                ((TextField) node).clear();
+            } else if (node instanceof DatePicker) {
+                ((DatePicker) node).setValue(null);
+            } else if (node instanceof ComboBox<?>) {
+                ((ComboBox<?>) node).getSelectionModel().clearSelection();
+            }
+        }
+    }
     @FXML
     private void cadastrarAnimal() {
         txtBrinco.getText();
@@ -69,6 +88,11 @@ public class AnimaisController {
 
         }
 
+    }
+    @FXML
+    private void cancelarCadastro(){
+        gridCadastro.setVisible(false);
+        gridCadastro.setManaged(false);
     }
     @FXML
     public void buscarAnimal(){

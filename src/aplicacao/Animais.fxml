@@ -9,7 +9,7 @@
         <HBox spacing="10" style="-fx-padding: 10; -fx-background-color: #ecf0f1;">
             <TextField fx:id="txtPesquisar" promptText="Pesquisar animal..." />
             <Button fx:id="btnBuscar" onAction="#buscarAnimal" text="Buscar" />
-            <Button fx:id="btnNovo" text="Novo Animal" />
+            <Button fx:id="btnNovo" text="Novo Animal" onAction="#novoAnimal" />
             <Button fx:id="btnAtualizar" onAction="#carregarAnimais" text="Atualizar" />
             <Button fx:id="btnExcluir" onAction="#excluirAnimal" text="Excluir" />
         </HBox>
@@ -17,9 +17,12 @@
 
 
     <center>
-        <TableView fx:id="tblAnimais" prefHeight="400.0" prefWidth="770.0">
+        <TableView fx:id="tblAnimais" prefHeight="400.0" prefWidth="770.0" >
+            <columnResizePolicy>
+                <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
             <columns>
-                <TableColumn fx:id="colBrinco" prefWidth="100" text="Brinco" />
+                <TableColumn fx:id="colBrinco" prefWidth="100" text="Brinco"  />
                 <TableColumn fx:id="colNome" prefWidth="150" text="Nome" />
                 <TableColumn fx:id="colRaca" prefWidth="100" text="Raça" />
                 <TableColumn fx:id="colDataNasc" prefWidth="120" text="Nascimento" />
@@ -29,7 +32,7 @@
         </TableView>
     </center>
     <bottom>
-        <GridPane hgap="10" style="-fx-padding: 10; -fx-background-color: #f9f9f9;" vgap="10">
+        <GridPane fx:id="gridCadastro" hgap="10" style="-fx-padding: 10; -fx-background-color: #f9f9f9;" vgap="10">
             <Label text="Brinco:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <TextField fx:id="txtBrinco" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
@@ -51,7 +54,7 @@
             <GridPane hgap="5" style="-fx-padding: 4; -fx-background-color: #f9f9f9;" vgap="5" GridPane.rowIndex="5">
                  <Button fx:id="btnSalvar" onAction="#cadastrarAnimal" text="Salvar" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                 <Button fx:id="btnEditar" text="Editar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                 <Button fx:id="btnCancelar" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                 <Button fx:id="btnCancelar" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="0" onAction="#cancelarCadastro"/>
             <columnConstraints>
                <ColumnConstraints />
                <ColumnConstraints />
