@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="aplicacao.RelatorioController">
+
+    <!-- Filtros no topo -->
+    <top>
+        <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 10;">
+            <Label text="Tipo de Relatório:"/>
+            <ComboBox fx:id="cbTipoRelatorio" promptText="Selecione">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Produção"/>
+                        <String fx:value="Reprodução"/>
+                        <String fx:value="Pesagem"/>
+                        <String fx:value="Vacinas"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <Label text="Mês:"/>
+            <DatePicker fx:id="dpMes" promptText="Mês"/>
+            <Button text="Gerar" />
+        </HBox>
+    </top>
+
+    <!-- Área central (gráfico ou tabela) -->
+    <center>
+        <VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;">
+            <Label text="Visualização do Relatório" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            <StackPane fx:id="paneGrafico" prefHeight="400" prefWidth="700" style="-fx-border-color: lightgray; -fx-border-width: 1;">
+                <!-- Aqui será injetado um gráfico ou tabela dinamicamente -->
+                <Label text="O gráfico/tabela será exibido aqui"/>
+            </StackPane>
+        </VBox>
+    </center>
+
+    <!-- Barra lateral de ações -->
+    <right>
+        <VBox spacing="15" alignment="TOP_CENTER" style="-fx-padding: 15; -fx-background-color: #f4f4f4;">
+            <Label text="Opções"/>
+            <Button text="Imprimir" />
+            <Button text="Salvar PDF" />
+
+        </VBox>
+    </right>
+
+    <!-- Rodapé -->
+    <bottom>
+        <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10;">
+            <Button text="Limpar Filtros" />
+            <Button text="Voltar" />
+        </HBox>
+    </bottom>
+
+</BorderPane>
+

@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplicacao.MainController">
 
     <left>
@@ -13,6 +14,11 @@
             <Button fx:id="btnProducao" prefWidth="150" text="Produção" />
             <Button fx:id="btnPesagem" prefWidth="150" text="Pesagem" />
             <Button fx:id="btnReproducao" prefWidth="150" text="Reprodução" />
+            <Button fx:id="btnRelatorio" prefWidth="150" text="Relatórios" >
+            <VBox.margin>
+                <Insets top="30" />
+            </VBox.margin>
+            </Button>
         </VBox>
     </left>
 
